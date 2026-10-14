@@ -67,8 +67,7 @@ SET
     Arrival_Time = NULLIF(@Arrival_Time, ''),
     Actual_Arrival_Time = NULLIF(@Actual_Arrival_Time, '');
     
-    SELECT COUNT(*) AS total_rows,
-       COUNT(DISTINCT Transaction_ID) AS unique_transactions
+SELECT COUNT(*) AS total_rows    
 FROM railway_data;
 
 select * from railway_data limit 10;
@@ -104,6 +103,8 @@ FROM railway_data;
 
 
 ### Identify Peak Purchase Times and Their Impact on Delays:
+-- Objective: Identify peak ticket-purchasing hours and analyze the relationship between ticket purchase times and 
+-- 			  journey delays to understand purchasing patterns and potential delay trends.
 
 SELECT
     HOUR(Time_of_Purchase) AS purchase_hour,
@@ -123,6 +124,7 @@ ORDER BY delay_percentage DESC;
 
 
 ### Analyze Journey Patterns of Frequent Travelers:
+-- Objective: Identify frequent travelers (those who made more than three purchases) and analyze their most common journey patterns.
 
 -- Here the dataset has no customer ID or passenger ID, so we cannot identify repeat purchases by the same traveler. 
 -- So here the analysis for most popular journey route. 
@@ -144,6 +146,7 @@ LIMIT 10;
 
 
 ### Revenue Loss Due to Delays with Refund Requests: 
+-- Objective: Calculate the total revenue loss due to delayed journeys for which a refund request was made.
 
 SELECT
     COUNT(*) AS delayed_refund_requests,
@@ -155,7 +158,7 @@ WHERE Journey_Status = 'Delayed'
 -- Key finding >>
 -- this identified that 546 delayed journeys for which the passengers requested refunds and the total revenue loss was 26165. 
 
--- here, the revenue loss according to the reason for delays for which refund requested 
+-- >> here, the revenue loss according to the reason for delays for which refund requested 
 SELECT
     Reason_for_Delay,
     COUNT(*) AS refund_requests,
@@ -168,6 +171,7 @@ ORDER BY revenue_loss DESC;
 
 
 ### Impact of Railcards on Ticket Prices and Journey Delays:
+-- Objective: Analyze the average ticket price and delay rate for journeys purchased with and without railcards.
 
 SELECT
     CASE
