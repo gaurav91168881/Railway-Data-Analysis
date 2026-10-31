@@ -82,25 +82,6 @@ SELECT
 FROM railway_data;
 
 
--- Count of Journey by status: 
-SELECT
-    Journey_Status,
-    COUNT(*) AS total_journeys
-FROM railway_data
-GROUP BY Journey_Status
-ORDER BY total_journeys DESC;
-
-
--- Checking the missing values- 
-SELECT
-    SUM(Transaction_ID IS NULL) AS missing_transaction_ids,
-    SUM(Date_of_Purchase IS NULL) AS missing_purchase_dates,
-    SUM(Date_of_Journey IS NULL) AS missing_journey_dates,
-    SUM(Price IS NULL) AS missing_prices,
-    SUM(Departure_Station IS NULL) AS missing_departure_stations,
-    SUM(Arrival_Destination IS NULL) AS missing_destinations
-FROM railway_data;
-
 
 ### Identify Peak Purchase Times and Their Impact on Delays:
 -- Objective: Identify peak ticket-purchasing hours and analyze the relationship between ticket purchase times and 
@@ -117,8 +98,8 @@ GROUP BY HOUR(Time_of_Purchase)
 ORDER BY delay_percentage DESC;
 
 -- Key findings >>
--- The highest number of ticket purchases occurred between 5 PM and 6 PM, with 2,740 transactions.
--- The highest delay rate was observed for tickets purchased between 9 AM and 10 AM, at 23.77%.
+-- The highest number of ticket purchases occurred at 5 PM with 2560 transactions.
+-- The highest delay rate was observed for tickets purchased at 9 AM and 10 AM, at 23.77%.
 -- The 5 PM purchase hour had a delay rate of 7.46% among non-cancelled journeys.
 -- The results show that the busiest purchase period did not have the highest delay rate.
 
